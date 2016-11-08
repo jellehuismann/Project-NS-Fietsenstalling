@@ -9,8 +9,11 @@ connect = sqlite3.connect('database.db')
 c = connect.cursor()
 
 def create_table():
-    c.execute('CREATE TABLE IF NOT EXISTS Fietsenstalling (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Name TEXT, Adress TEXT, FietsNr INTEGER, PIN INTEGER, otpKEY TEXT)')
-
+    try:
+        c.execute('CREATE TABLE IF NOT EXISTS Fietsenstalling (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, '
+              'Name TEXT, Adress TEXT, FietsNr INTEGER, PIN INTEGER, otpKEY TEXT)')
+    except AttributeError:
+        return 'Database is niet juist bijgewerkt controleer de database of controleer de code!'
 #auth = OtpAuth('JBSWY3DPEHPK3PXP')  # a secret string
 #auth.hotp()  # generate a count based code, default count is 4
 #auth.valid_hotp(330810)
@@ -27,6 +30,7 @@ img.show()
 controle = auth.valid_totp(int(input('Voer code in')))
 
 print(controle)
+print(create_table())
 
 if controle == True:
     print('Code geaccepteerd')
