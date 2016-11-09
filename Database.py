@@ -20,7 +20,7 @@ def print_database():
     try:
         global fietsnummer
         result = theCursor.execute("SELECT ID, Naam, Achternaam, Adress, Telefoon, FietsNr, PIN, otpKEY FROM Fietsenstalling")
-        fietsnummer = theCursor.execute("SELECT ID, FietsNr FROM Fietsenstalling")
+    
 
         # You receive a l`ist of lists that hold the result
         for row in result:
