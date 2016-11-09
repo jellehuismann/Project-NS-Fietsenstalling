@@ -48,7 +48,7 @@ def create_database():
         print("Table couldn't be Created")
 
 #Import Naar Database
-def add_to_database(Naam, Acht):
+def add_to_database():
     """
     Functie voor het wegschrijven van variable naar de
     """
