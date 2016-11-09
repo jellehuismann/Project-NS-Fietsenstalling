@@ -25,5 +25,5 @@ def controle_otp():
          print('Code geaccepteerd')
     else:
          print('Helaas de code is onjuist')
-#nieuwe_gebruiker()
+nieuwe_gebruiker()
 controle_otp()

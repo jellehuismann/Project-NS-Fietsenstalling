@@ -52,7 +52,7 @@ def add_to_database():
     """
     Functie voor het wegschrijven van variable naar de
     """
-    db_conn.execute("INSERT INTO Fietsenstalling (Naam, Achternaam, Adress, FietsNr, PIN, otpKEY) VALUES "
+    db_conn.execute("INSERT INTO Fietsenstalling (Naam, Achternaam, Telefoon, FietsNr, PIN, otpKEY) VALUES "
                     "(?, ?, ?, ?, ?, ?);",(Naam, Achternaam, Adress, FietsNr, PIN,))
 
     db_conn.commit()
