@@ -1,5 +1,5 @@
-import _tkinter as tk
-import 
+import tkinter as tk
+import Database
 import sqlite3
 
 db_conn = sqlite3.connect('database.db')
@@ -11,9 +11,10 @@ class MainRender(tk.Frame):
     def show(self):
         self.lift()
 
+
 class NieuweFiets(MainRender):
     def __init__(self):
-        super.__init__()
+        super().__init__()
         self.initialize()
 
     def initialize(self):
@@ -39,25 +40,24 @@ class NieuweFiets(MainRender):
         pincodeInvoer = tk.Entry(self)
         pincodeInvoer.pack()
 
-        doorgaan = tk.Button(self, text="doorgaan", command=self.importDatabase).pack()
+        doorgaan = tk.Button(self, text="Doorgaan", command=self.importDatabase).pack()
+
+
     def importDatabase(self):
-        db_conn.execute("INSERT INTO Fietsenstalling VALUES (Naam, Achternaam, Telefoonnummer, PIN);", (naamInvoer.get(), achternaamInvoer.get(), telefoonnummerInvoer.get(), pincodeInvoer.get()))
+        db_conn.execute("INSERT INTO Fietsenstalling (Naam, Achternaam, Telefoon, PIN) VALUES "
+                        "(?, ?, ?, ?);", (naamInvoer.get(), achternaamInvoer.get(), telefoonnummerInvoer.get(), pincodeInvoer.get()))
         db_conn.commit()
-        #print(naamInvoer.get(), achternaamInvoer.get(), telefoonnummerInvoer.get(), pincodeInvoer.get())
+        HoofdScherm.schermFietsGeinstalleerd()
 
-
-    def switch1(self):
-        print(naamInvoer.get())
-        Pag1.lift()
 
 class FietsOphalen(MainRender):
     def __init__(self):
-        super.__init__()
+        super().__init__()
         self.initialize()
     def initialize(self):
 
-        label_1 = tk.Label(self, text="wat is uw fietsnummer: ")
-        label_2 = tk.Label(self, text="wat uw pincode: ")
+        label_1 = tk.Label(self, text="Wat is uw fietsnummer: ")
+        label_2 = tk.Label(self, text="Wat uw pincode: ")
 
         entry_1 = tk.Entry(self)
         entry_2 = tk.Entry(self, show="*")
@@ -80,19 +80,27 @@ class FietsOphalen(MainRender):
         else:
             tm.showerror("incorrect")
 
-
-
 class FietsStallen(MainRender):
     def __init__(self):
-        super.__init__()
+        super().__init__()
         self.initialize()
     def initialize(self):
         tk.Label(self, text='randomtext').pack()
 
+
+class FietsGeregistreerd(MainRender):
+    def __init__(self):
+        super().__init__()
+        self.initialize()
+
+    def initialize(self):
+        tk.Label(self, text='Uw fiets is succesvol geregistreerd. Middels de volgende QR code ontvangt u uw fietsnummer.').pack()
+
+
 #frame for in window
 class MainMenu(MainRender):
     def __init__(self):
-        super.__init__()
+        super().__init__()
         self.initialize()
     def initialize(self):
         butt1= tk.Button(self,text='Nieuwe Fiets', command=HoofdScherm.schermNieuweFiets).pack()
@@ -102,7 +110,7 @@ class MainMenu(MainRender):
 #window
 class HoofdScherm(tk.Frame):
     def __init__(self):
-        super.__init__()
+        super().__init__()
         self.initialize()
 
     def initialize(self):
@@ -110,11 +118,13 @@ class HoofdScherm(tk.Frame):
         global Pag2
         global Pag3
         global Pag4
+        global Pag5
 
         Pag1 = NieuweFiets()
         Pag2 = FietsStallen()
         Pag3 = MainMenu()
         Pag4 = FietsOphalen()
+        Pag5 = FietsGeregistreerd()
 
         self.buttonframe = tk.Frame(self)
         self.container = tk.Frame(self)
@@ -125,24 +135,25 @@ class HoofdScherm(tk.Frame):
         Pag2.place(in_ = self.container, x=0, y=0, relwidth=1, relheight=1)
         Pag3.place(in_ = self.container, x=0, y=0, relwidth=1, relheight=1)
         Pag4.place(in_ = self.container, x=0, y=0, relwidth=1, relheight=1)
+        Pag5.place(in_ = self.container, x=0, y=0, relwidth=1, relheight=1)
 
 
         Pag3.show()
 
-    def schermNieuweFiets(self):
+    def schermNieuweFiets():
         Pag1.lift()
 
-    def schermFietsOphalen(self):
+    def schermFietsOphalen():
         Pag4.lift()
 
-    def schermMainMenu(self):
+    def schermMainMenu():
         Pag3.lift()
 
-    def schermFietsStallen(self):
+    def schermFietsStallen():
         Pag2.lift()
 
-
-
+    def schermFietsGeinstalleerd():
+        Pag5.lift()
 
 if __name__ == "__main__":
     root=tk.Tk()

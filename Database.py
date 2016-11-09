@@ -13,6 +13,7 @@ db_conn = sqlite3.connect('database.db')
 print("Database Created")
 
 theCursor = db_conn.cursor()
+
 #Database aanmaken
 def print_database():
     try:
@@ -48,12 +49,12 @@ def create_database():
         print("Table couldn't be Created")
 
 #Import Naar Database
-def add_to_database(Naam, Acht):
+def add_to_database():
     """
     Functie voor het wegschrijven van variable naar de
     """
-    db_conn.execute("INSERT INTO Fietsenstalling (Naam, Achternaam, Adress, FietsNr, PIN, otpKEY) VALUES "
-                    "(?, ?, ?, ?, ?, ?);",(Naam, Achternaam, Adress, FietsNr, PIN,))
+    db_conn.execute("INSERT INTO Fietsenstalling (Naam, Achternaam, Adress, FietsNr, PIN) VALUES "
+                    "(?, ?, ?, ?, ?);",(Naam, Achternaam, Adress, FietsNr, PIN))
 
     db_conn.commit()
 
