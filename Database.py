@@ -18,7 +18,7 @@ def print_database():
     try:
         result = theCursor.execute("SELECT ID, Naam, Achternaam, Adress, Telefoon, FietsNr, PIN, otpKEY FROM Fietsenstalling")
 
-        # You receive a list of lists that hold the result
+        # You receive a l`ist of lists that hold the result
         for row in result:
             print("Naam :", row[0])
             print("Achternaam :", row[1])
@@ -53,10 +53,9 @@ def add_to_database(Naam, Acht):
     Functie voor het wegschrijven van variable naar de
     """
     db_conn.execute("INSERT INTO Fietsenstalling (Naam, Achternaam, Adress, FietsNr, PIN, otpKEY) VALUES "
-                    "(?, ?, ?, ?, ?, ?);",(Naam, Achternaam, Adress, FietsNr, PIN, otpKEY))
+                    "(?, ?, ?, ?, ?, ?);",(Naam, Achternaam, Adress, FietsNr, PIN,))
 
     db_conn.commit()
 
 add_to_database()
 print(print_database())
-
