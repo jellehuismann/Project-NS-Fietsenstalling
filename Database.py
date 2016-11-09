@@ -8,6 +8,8 @@ FietsNr = 2343
 PIN = 3343
 otpKEY = 'aaa'
 
+fietsnummer = 0
+
 db_conn = sqlite3.connect('database.db')
 
 print("Database Created")
@@ -16,7 +18,9 @@ theCursor = db_conn.cursor()
 #Database aanmaken
 def print_database():
     try:
+        global fietsnummer
         result = theCursor.execute("SELECT ID, Naam, Achternaam, Adress, Telefoon, FietsNr, PIN, otpKEY FROM Fietsenstalling")
+        fietsnummer = theCursor.execute("SELECT ID, FietsNr FROM Fietsenstalling")
 
         # You receive a l`ist of lists that hold the result
         for row in result:
@@ -59,3 +63,5 @@ def add_to_database():
 
 add_to_database()
 print(print_database())
+
+print(fietsnummer)

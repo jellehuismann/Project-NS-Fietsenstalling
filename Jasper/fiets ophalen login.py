@@ -1,4 +1,4 @@
-#testg
+
 class LoginFrame(Frame):
     def __init__(self, master):
         super().__init__(master)
@@ -26,7 +26,9 @@ class LoginFrame(Frame):
 
             # print(username, password)
 
-            if fietsnr == "john" and pincode == "password":
+            if fietsnr == theCursor.execute("SELECT ID, FietsNr FROM Fietsenstalling") and pincode == theCursor.execute("SELECT ID, PIN FROM Fietsenstalling"):
+                print('correct')
                 # functie controle_otp toekennen
+
             else:
                 print("incorrect")
