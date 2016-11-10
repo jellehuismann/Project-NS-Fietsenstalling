@@ -218,6 +218,12 @@ class MainMenu(MainRender):
         butt2= tk.Button(self,text='Fiets Stallen', command=HoofdScherm.schermFietsStallen).pack()
         butt3= tk.Button(self, text="Fiets Ophalen", command=HoofdScherm.schermFietsOphalen).pack()
 
+        img = Image.open("NStrans.png")
+        render = ImageTk.PhotoImage(img)
+        img = tk.Label(self, image=render)
+        img.image = render
+        img.place(x=150, y=100)
+
 class fietsVrijgegeven(MainRender):
     def __init__(self):
         super().__init__()
