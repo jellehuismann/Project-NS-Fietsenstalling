@@ -110,7 +110,6 @@ class FietsOphalen(MainRender):
         print(controle)
         if len(s) > 0:
             HoofdScherm.schermFietsvrijgegeven()
-            print('Welcome')
             controle_otp(controle)
         else:
             HoofdScherm.schermFietsNietVrijgegeven()
@@ -166,8 +165,7 @@ class FietsStallen(MainRender):
         if len(s) > 0:
             HoofdScherm.schermFietsGestalt()
             print('Welcome')
-            print(ctrcode)
-            #controle_otp(ctrcode)
+            controle_otp(ctrcode)
 
         else:
             HoofdScherm.schermFietsNietGestalt()
