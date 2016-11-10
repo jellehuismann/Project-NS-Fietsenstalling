@@ -2,28 +2,31 @@ import sys
 import random
 sys.path.append('otpauth-master')
 sys.path.append('six')
-sys.path.append('python-qrcode-master')
+sys.path.append('pymaging-master')
 from otpauth import OtpAuth
+from qrcode import *
+db_auth = 0
 
-db_auth = 'B5F32F3EF4422334'
 def nieuwe_gebruiker():
     global db_auth
     Random = str((''.join(random.choice('ABDJFHE34543234') for _ in range(16))))
     db_auth = Random
-    print(Random)
-    auth = OtpAuth(Random)  # Moet 16 lang zijn
-    s = auth.to_uri('totp', 'Jelle Huisman', 'NS Fietsenstalling')
-    import qrcode
-    img = qrcode.make(s)
-    img.show()
+    db_auth2= db_auth
+    print(db_auth)
+    print(db_auth2)
+    auth = OtpAuth(Random)
+    s = auth.to_uri('totp', 'NS', 'NS Fietsenstalling')
+    qr = QRCode(version=1, error_correction=ERROR_CORRECT_L)
+    qr.add_data(s)
+    qr.make()
+    img = qr.make_image()
+    img.save("qrcode.png")
 
-def controle_otp():
-    auth = OtpAuth(db_auth)
-    print(auth)
+def controle_otp(response):
+    auth = OtpAuth(response)
     controle = auth.valid_totp(int(input('Voer code in')))
     if controle == True:
          print('Code geaccepteerd')
     else:
          print('Helaas de code is onjuist')
 nieuwe_gebruiker()
-controle_otp()
