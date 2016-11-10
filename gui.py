@@ -5,9 +5,9 @@ import Database
 import sqlite3
 from Autenticatie import *
 import random
-
 db_conn = sqlite3.connect('database.db')
 theCursor = db_conn.cursor()
+ctrcode = 0
 fietsnr = 0
 pincode = 0
 
@@ -51,11 +51,10 @@ class NieuweFiets(MainRender):
         tk.Button(self, text="Terug", command=HoofdScherm.schermMainMenu).pack()
 
 
-
     def importDatabase(self):
-        nieuwe_gebruiker()
+        print(ctrcode)
         db_conn.execute("INSERT INTO Fietsenstalling (Naam, Achternaam, Telefoon, FietsNr, PIN, otpKEY) VALUES "
-                        "(?, ?, ?, ?, ?, ?);", (naamInvoer.get(), achternaamInvoer.get(), telefoonnummerInvoer.get(), FietsNr, pincodeInvoer.get(), db_auth))
+                        "(?, ?, ?, ?, ?, ?);", (naamInvoer.get(), achternaamInvoer.get(), telefoonnummerInvoer.get(), FietsNr, pincodeInvoer.get(), ctrcode))
 
         db_conn.commit()
         HoofdScherm.schermFietsGeinstalleerd()
@@ -107,12 +106,12 @@ class FietsOphalen(MainRender):
         s = set(theCursor.fetchall())
         theCursor.execute('SELECT otpKEY FROM Fietsenstalling WHERE FietsNr = ? AND PIN = ?', (fietsnr, pincode))
         otpKEY = theCursor.fetchone()
-        #controle = str(otpKEY[0])
-        #print(controle)
+        controle = str(otpKEY[0])
+        print(controle)
         if len(s) > 0:
             HoofdScherm.schermFietsvrijgegeven()
             print('Welcome')
-            #controle_otp(controle)
+            controle_otp(controle)
         else:
             HoofdScherm.schermFietsNietVrijgegeven()
             print('Login failed')
@@ -167,6 +166,8 @@ class FietsStallen(MainRender):
         if len(s) > 0:
             HoofdScherm.schermFietsGestalt()
             print('Welcome')
+            print(ctrcode)
+            #controle_otp(ctrcode)
 
         else:
             HoofdScherm.schermFietsNietGestalt()
@@ -194,6 +195,9 @@ class FietsGeregistreerd(MainRender):
         self.initialize()
 
     def initialize(self):
+        global ctrcode
+        ctrcode = nieuwe_gebruiker()
+        print(ctrcode)
         tk.Label(self, text='Uw fiets is succesvol geregistreerd. \nUw fietscode is '+ str(FietsNr) +' \nMiddels de volgende QR code kunt u Google Autenticator activeren.').pack()
         terug = tk.Button(self, text="verder", command=HoofdScherm.schermMainMenu)
         terug.pack()
@@ -278,7 +282,6 @@ class HoofdScherm(tk.Frame):
 
     def schermNieuweFiets():
         Pag1.lift()
-
     def schermFietsOphalen():
         Pag4.lift()
 
@@ -307,6 +310,8 @@ class HoofdScherm(tk.Frame):
 if __name__ == "__main__":
     root=tk.Tk()
     main=HoofdScherm()
+
     main.pack(side='top', fill='both', expand=True)
     root.geometry('640x640')
     root.mainloop()
+

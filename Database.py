@@ -13,7 +13,7 @@ fietsnummer = 0
 
 db_conn = sqlite3.connect('database.db')
 
-print("Database Created")
+print("Verbonden met database")
 
 theCursor = db_conn.cursor()
 
@@ -62,14 +62,14 @@ def add_to_database():
                     "(?, ?, ?, ?, ?);",(Naam, Achternaam, Adress, FietsNr, PIN))
 
     db_conn.commit()
-def importDatabase(self):
-    """
-    Functie om de FietsNr toe te voegen aan de database
-    """
-    db_conn.execute("INSERT INTO Fietsenstalling (Naam, Achternaam, Telefoon, FietsNr, PIN) VALUES "
-                    "(?, ?, ?, ?, ?);", (naamInvoer.get(), achternaamInvoer.get(), telefoonnummerInvoer.get(), FietsNr, pincodeInvoer.get()))
-
-    db_conn.commit()
+#def importDatabase(self):
+#    """
+#    Functie om de FietsNr toe te voegen aan de database
+#    """
+#    db_conn.execute("INSERT INTO Fietsenstalling (Naam, Achternaam, Telefoon, FietsNr, PIN) VALUES "
+#                    "(?, ?, ?, ?, ?);", (naamInvoer.get(), achternaamInvoer.get(), telefoonnummerInvoer.get(), FietsNr, pincodeInvoer.get()))
+#
+#    db_conn.commit()
 
 
 def add_FietsNr(FietsNr):
@@ -82,10 +82,8 @@ def add_FietsNr(FietsNr):
 
 #add_to_database()
 
-def insertDatabase():
-        db_conn.execute("INSERT INTO Fietsenstalling (Naam, Achternaam, Telefoon, FietsNr, PIN, otpKEY) VALUES "
-                        "(?, ?, ?, ?, ?, ?);", (naamInvoer.get(), achternaamInvoer.get(), telefoonnummerInvoer.get(), FietsNr, pincodeInvoer.get(), db_auth))
 
-        db_conn.commit()
-        HoofdScherm.schermFietsGeinstalleerd()
+
+create_database()
+
 
