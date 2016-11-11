@@ -22,12 +22,14 @@ def nieuwe_gebruiker():
     img.save("qrcode.png")
     return db_auth
 
-def controle_otp(response):
+def controle_otp(response, pincode):
     auth = OtpAuth(response)
-    controle = auth.valid_totp(int(input('Voer code in')))
+    controle = auth.valid_totp(int(pincode))
     if controle == True:
          print('Code geaccepteerd')
+         return True
     else:
          print('Helaas de code is onjuist')
+         return False
 #nieuwe_gebruiker()
 #controle_otp('3324EH333D3DH3E3')
