@@ -10,6 +10,7 @@ theCursor = db_conn.cursor()
 ctrcode = 0
 fietsnr = 0
 pincode = 0
+geplaatst = 0
 
 class MainRender(tk.Frame):
     def __init__(self):
@@ -109,8 +110,10 @@ class FietsOphalen(MainRender):
         controle = str(otpKEY[0])
         print(controle)
         if len(s) > 0:
-            HoofdScherm.schermFietsvrijgegeven()
-            controle_otp(controle)
+            verif = controle_otp(controle, authcode)
+            print(verif)
+            if verif is True:
+                HoofdScherm.schermFietsvrijgegeven()
         else:
             HoofdScherm.schermFietsNietVrijgegeven()
             print('Login failed')
@@ -163,9 +166,9 @@ class FietsStallen(MainRender):
 
         s = set(theCursor.fetone())
         if len(s) > 0:
-            HoofdScherm.schermFietsGestalt()
-            print('Welcome')
-            controle_otp(ctrcode)
+                HoofdScherm.schermFietsGestalt()
+        elif geplaatst == 1:
+            print('Uw fiets is al geplaatst')
 
         else:
             HoofdScherm.schermFietsNietGestalt()

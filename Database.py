@@ -46,7 +46,7 @@ def create_database():
     """
     try:
         db_conn.execute('CREATE TABLE IF NOT EXISTS Fietsenstalling (FietsNr INTEGER PRIMARY KEY NOT NULL, '
-                        'Naam TEXT ,Achternaam TEXT ,Adress TEXT ,Telefoon INTEGER ,PIN INTEGER ,otpKEY TEXT)')
+                        'Naam TEXT ,Achternaam TEXT ,Adress TEXT ,Telefoon INTEGER ,PIN INTEGER ,Gestald INTEGER,otpKEY TEXT)')
         db_conn.commit()
         print("Table Created")
 
@@ -62,25 +62,18 @@ def add_to_database():
                     "(?, ?, ?, ?, ?);",(Naam, Achternaam, Adress, FietsNr, PIN))
 
     db_conn.commit()
-#def importDatabase(self):
-#    """
-#    Functie om de FietsNr toe te voegen aan de database
-#    """
-#    db_conn.execute("INSERT INTO Fietsenstalling (Naam, Achternaam, Telefoon, FietsNr, PIN) VALUES "
-#                    "(?, ?, ?, ?, ?);", (naamInvoer.get(), achternaamInvoer.get(), telefoonnummerInvoer.get(), FietsNr, pincodeInvoer.get()))
-#
-#    db_conn.commit()
-
-
-def add_FietsNr(FietsNr):
+def importDatabase(self):
     """
     Functie om de FietsNr toe te voegen aan de database
     """
-    db_conn.execute("INSERT INTO Fietsenstalling (FietsNr) VALUES (?);", (FietsNr,))
+    db_conn.execute("INSERT INTO Fietsenstalling (Naam, Achternaam, Telefoon, FietsNr, PIN) VALUES "
+                    "(?, ?, ?, ?, ?);", (naamInvoer.get(), achternaamInvoer.get(), telefoonnummerInvoer.get(), FietsNr, pincodeInvoer.get()))
 
     db_conn.commit()
 
-#add_to_database()
+#def setfiets():
+#    db_conn.execute("UPDATE Fietsenstalling set Gestald = 1 where FietsNr = ?")
+#    db_conn.commit()
 
 
 
