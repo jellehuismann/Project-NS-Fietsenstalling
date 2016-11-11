@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.ttk as ttk
 import image
 from PIL import Image, ImageTk
 import Database
@@ -84,7 +85,7 @@ class FietsOphalen(MainRender):
         entry_1.grid(row=0, column=1)
         entry_2.grid(row=1, column=1)
         entry_3.grid(row=2, column=1)
-
+        print('test22')
         doorgaan = tk.Button(self, text="doorgaan", command=self._login_btn_clicked)
         doorgaan.grid(columnspan=2)
         terug = tk.Button(self, text="terug", command=HoofdScherm.schermMainMenu)
@@ -99,8 +100,6 @@ class FietsOphalen(MainRender):
         fietsnr = int(entry_1.get())
         pincode = int(entry_2.get())
         authcode = int(entry_3.get())
-
-
         theCursor.execute('SELECT * FROM Fietsenstalling WHERE FietsNr = ? AND PIN = ?', (fietsnr, pincode))
             # If nothing was found then c.fetchall() would be an empty list, which
             # evaluates to False
@@ -119,32 +118,25 @@ class FietsOphalen(MainRender):
             print('Login failed')
         #print(username, password)
 
-
+tk.getint
 class FietsStallen(MainRender):
     def __init__(self):
         super().__init__()
         self.initialize()
-
     def initialize(self):
 
         global entry_3
         global entry_4
-
         label_1 = tk.Label(self, text="Wat is uw fietsnummer: ")
         label_2 = tk.Label(self, text="Wat uw pincode: ")
-
-        entry_3 = (tk.Entry(self))
-        entry_4 = (tk.Entry(self, show="*"))
-
-
+        entry_1 = (tk.Entry(self))
+        entry_2 = (tk.Entry(self, show="*"))
+        print('test1')
 
         label_1.grid(row=0, sticky=tk.E)
         label_2.grid(row=1, sticky=tk.E)
-
-
-        entry_3.grid(row=0, column=1)
-        entry_4.grid(row=1, column=1)
-
+        entry_1.grid(row=0, column=1)
+        entry_2.grid(row=1, column=1)
 
         doorgaan = tk.Button(self, text="doorgaan", command=self._login_btn_clicked)
         doorgaan.grid(columnspan=2)
@@ -152,23 +144,21 @@ class FietsStallen(MainRender):
         terug.grid(columnspan=2)
 
     def _login_btn_clicked(self):
-        global entry_3
-        global entry_4
+        global entry_1
+        global entry_2
         global fietsnr
         global pincode
+        print(entry_1)
 
+        fietsnr = int(8861)
+        pincode = int(1234)
 
-        fietsnr = int(entry_3.get())
-        pincode = int(entry_4.get())
+        theCursor.execute('SELECT * FROM Fietsenstalling WHERE FietsNr = ? AND PIN = ?', (fietsnr, pincode))
 
-
-        theCursor.execute('SELECT * FROM Fietsenstalling WHERE FietsNr = ? AND PIN = ?' (fietsnr, pincode))
-
-        s = set(theCursor.fetone())
+        s = set(theCursor.fetchall())
+        print(len)
         if len(s) > 0:
-                HoofdScherm.schermFietsGestalt()
-        elif geplaatst == 1:
-            print('Uw fiets is al geplaatst')
+            HoofdScherm.schermFietsGestalt()
 
         else:
             HoofdScherm.schermFietsNietGestalt()
@@ -198,7 +188,7 @@ class FietsGeregistreerd(MainRender):
     def initialize(self):
         global ctrcode
         ctrcode = nieuwe_gebruiker()
-        print(ctrcode)
+        #print(ctrcode)
         tk.Label(self, text='Uw fiets is succesvol geregistreerd. \nUw fietscode is '+ str(FietsNr) +' \nMiddels de volgende QR code kunt u Google Autenticator activeren.').pack()
         terug = tk.Button(self, text="verder", command=HoofdScherm.schermMainMenu)
         terug.pack()
@@ -317,8 +307,8 @@ class HoofdScherm(tk.Frame):
 if __name__ == "__main__":
     root=tk.Tk()
     main=HoofdScherm()
-
     main.pack(side='top', fill='both', expand=True)
     root.geometry('640x640')
+    root.configure(background='yellow')
     root.mainloop()
 
