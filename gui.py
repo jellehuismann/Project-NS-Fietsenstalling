@@ -22,7 +22,7 @@ class MainRender(tk.Frame):
 
 class NieuweFiets(MainRender):
     """
-    Bouwd het menu nieuwe fiets op.
+    Bouwt het menu nieuwe fiets op.
     """
     def __init__(self):
         super().__init__()
@@ -74,7 +74,7 @@ class FietsOphalen(MainRender):
         self.initialize()
     def initialize(self):
         """
-        Bouwd het menu op Fiet Ophalen
+        Bouwt het menu op Fiet Ophalen
         """
         global entry_1
         global entry_2
@@ -137,7 +137,7 @@ class FietsStallen(MainRender):
         self.initialize()
     def initialize(self):
         """
-        Bouwd het menu op van fiets stallen
+        Bouwt het menu op van fiets stallen
         """
         global entry_3
         global entry_4
