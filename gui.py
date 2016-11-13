@@ -21,6 +21,9 @@ class MainRender(tk.Frame):
 
 
 class NieuweFiets(MainRender):
+    """
+    Bouwd het menu nieuwe fiets op.
+    """
     def __init__(self):
         super().__init__()
         self.initialize()
@@ -54,6 +57,9 @@ class NieuweFiets(MainRender):
 
 
     def importDatabase(self):
+        """
+        Zet de data in de gemaakte database die is gemaakt in Database.py
+        """
         print(ctrcode)
         db_conn.execute("INSERT INTO Fietsenstalling (Naam, Achternaam, Telefoon, FietsNr, PIN, otpKEY) VALUES "
                         "(?, ?, ?, ?, ?, ?);", (naamInvoer.get(), achternaamInvoer.get(), telefoonnummerInvoer.get(), FietsNr, pincodeInvoer.get(), ctrcode))
@@ -67,7 +73,9 @@ class FietsOphalen(MainRender):
         super().__init__()
         self.initialize()
     def initialize(self):
-
+        """
+        Bouwd het menu op Fiet Ophalen
+        """
         global entry_1
         global entry_2
         global entry_3
@@ -92,6 +100,11 @@ class FietsOphalen(MainRender):
         terug.grid(columnspan=2)
 
     def _login_btn_clicked(self):
+        """
+        Functie Die wordt uitgevoerd nadat er op de knop doorgaan wordt gedrukt in het menu fiets Ophalen.
+        Deze funcite zorgt er voor dat de invoer wordt gecontroleerd en de functie controle_otp wordt opgeroepen.
+        Om de google authenticator code te controleren.
+        """
         global entry_1
         global entry_2
         global pincode
@@ -107,12 +120,11 @@ class FietsOphalen(MainRender):
         theCursor.execute('SELECT otpKEY FROM Fietsenstalling WHERE FietsNr = ? AND PIN = ?', (fietsnr, pincode))
         otpKEY = theCursor.fetchone()
         controle = str(otpKEY[0])
+        verif = controle_otp(controle, authcode)
         print(controle)
-        if len(s) > 0:
-            verif = controle_otp(controle, authcode)
+        if len(s) > 0 and verif is True:
             print(verif)
-            if verif is True:
-                HoofdScherm.schermFietsvrijgegeven()
+            HoofdScherm.schermFietsvrijgegeven()
         else:
             HoofdScherm.schermFietsNietVrijgegeven()
             print('Login failed')
@@ -124,7 +136,9 @@ class FietsStallen(MainRender):
         super().__init__()
         self.initialize()
     def initialize(self):
-
+        """
+        Bouwd het menu op van fiets stallen
+        """
         global entry_3
         global entry_4
         label_1 = tk.Label(self, text="Wat is uw fietsnummer: ")
@@ -144,6 +158,9 @@ class FietsStallen(MainRender):
         terug.grid(columnspan=2)
 
     def _login_btn_clicked(self):
+        """
+        Functie Die wordt uitgevoerd nadat er op de knop doorgaan wordt gedrukt in het menu fiets stallen.
+        """
         global entry_1
         global entry_2
         global fietsnr
@@ -165,6 +182,9 @@ class FietsStallen(MainRender):
             print('Login failed')
 
 class fietsGestalt(MainRender):
+    """
+    Menu voor het bevestigen dat de fiets is gestald
+    """
     def __init__(self):
         super().__init__()
         self.initialize()
@@ -173,6 +193,9 @@ class fietsGestalt(MainRender):
         tk.Button(self, text='Terug naar hoofdmenu', command=HoofdScherm.schermMainMenu)
 
 class fietsNietGestalt(MainRender):
+    """
+    Menu voor het bevestigen dat de fiets niet is gestald. (Verkeerde invoer gegeven)
+    """
     def __init__(self):
         super().__init__()
         self.initialize()
@@ -183,9 +206,13 @@ class fietsNietGestalt(MainRender):
 class FietsGeregistreerd(MainRender):
     def __init__(self):
         super().__init__()
+        super().__init__()
         self.initialize()
-
     def initialize(self):
+        """
+        Initialiseerd het menu die wordt getoond na het invoeren van alle gegevens voor een nieuwe gebruiker.
+        en de Code voor het tonen van de QR-Code en de random FietsNR.
+        """
         global ctrcode
         ctrcode = nieuwe_gebruiker()
         #print(ctrcode)
